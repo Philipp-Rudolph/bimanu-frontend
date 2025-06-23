@@ -3,12 +3,14 @@ import { ref, onMounted } from 'vue';
 import StationsList from '@/components/StationsList.vue';
 import SearchBar from '@/components/SearchBar.vue';
 import GeoFilter from '@/components/GeoFilter.vue';
+import MapComponent from '@/components/MapComponent.vue';
 import { fetchStations } from '@/composables/api.js';
 
 const allStations = ref([]);
 const filteredStations = ref([]);
 const loading = ref(true);
 const error = ref(null);
+const showMap = ref(false);
 
 onMounted(async () => {
   try {
@@ -52,13 +54,27 @@ const handleReset = () => {
       <div v-else>
         <div class="filters">
           <SearchBar :stations="allStations" @results="handleSearchResults" @reset="handleReset" />
-
           <GeoFilter @results="handleGeoResults" @reset="handleReset" />
         </div>
 
-        <div class="results">
-          <p class="count">{{ filteredStations.length }} Tankstellen gefunden</p>
-          <StationsList :data="filteredStations" />
+        <div class="view-controls">
+          <div class="results-info">
+            <span class="count">{{ filteredStations.length }} Tankstellen gefunden</span>
+          </div>
+
+          <div class="view-buttons">
+            <button @click="showMap = false" class="btn" :class="{ 'btn-primary': !showMap, 'btn-secondary': showMap }">
+              Liste
+            </button>
+            <button @click="showMap = true" class="btn" :class="{ 'btn-primary': showMap, 'btn-secondary': !showMap }">
+              Karte
+            </button>
+          </div>
+        </div>
+
+        <div class="content">
+          <MapComponent v-if="showMap" :stations="filteredStations" />
+          <StationsList v-else :data="filteredStations" />
         </div>
       </div>
     </main>
@@ -110,6 +126,21 @@ header {
     color: $color-gray-500;
     margin-bottom: $space-4;
     font-weight: $font-weight-medium;
+  }
+}
+
+.view-controls {
+  @include flex-between;
+  margin-bottom: $space-8;
+
+  .results-info {
+    flex-grow: 1;
+    color: $color-gray-600;
+  }
+
+  .view-buttons {
+    display: flex;
+    gap: $space-2;
   }
 }
 </style>
