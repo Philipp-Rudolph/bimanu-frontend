@@ -1,5 +1,7 @@
 <script setup>
+import { ref } from 'vue';
 import { createGoogleMapsLink } from '@/composables/maps.js';
+import SortBar from '@/components/SortBar.vue';
 
 const props = defineProps({
   data: {
@@ -9,6 +11,12 @@ const props = defineProps({
   }
 });
 
+const sortedStations = ref([]);
+
+const handleSorted = (sorted) => {
+  sortedStations.value = sorted;
+};
+
 </script>
 
 <template>
@@ -17,16 +25,19 @@ const props = defineProps({
       Keine Tankstellen gefunden
     </div>
 
-    <div v-else class="stations-grid">
-      <article v-for="station in props.data" :key="station.id || station.adresse" class="station-card">
-        <div class="station-info">
-          <a :href="createGoogleMapsLink(station.geometry.y, station.geometry.x, station.adresse)" target="_blank"
-            rel="noopener noreferrer">
-            <h3 class="station-address">{{ station.adresse }}</h3>
-            <p v-if="station.distance_km">{{ station.distance_km.toFixed(1) }} km entfernt</p>
-          </a>
-        </div>
-      </article>
+    <div v-else>
+      <SortBar :data="props.data" @sorted="handleSorted" />
+      <div class="stations-grid">
+        <article v-for="station in sortedStations.length ? sortedStations : props.data" :key="station.id || station.adresse" class="station-card">
+          <div class="station-info">
+            <a :href="createGoogleMapsLink(station.longitude, station.latitude, station.adresse)" target="_blank"
+              rel="noopener noreferrer">
+              <h3 class="station-address">{{ station.adresse }}</h3>
+              <p v-if="station.distance_km">{{ station.distance_km.toFixed(1) }} km entfernt</p>
+            </a>
+          </div>
+        </article>
+      </div>
     </div>
   </div>
 </template>
@@ -95,4 +106,5 @@ const props = defineProps({
   text-transform: uppercase;
   letter-spacing: 0.5px;
 }
+
 </style>
