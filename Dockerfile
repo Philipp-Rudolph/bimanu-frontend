@@ -7,6 +7,6 @@ COPY package*.json ./
 RUN npm install && npm audit fix --force
 COPY . .
 
-EXPOSE 5173
+EXPOSE 8082
 
 CMD ["npm", "run", "dev"]
