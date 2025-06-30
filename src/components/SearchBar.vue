@@ -1,14 +1,21 @@
 <script setup>
+// vue imports
 import { ref, watch } from 'vue';
 
+// props and emits
 const props = defineProps({
   stations: { type: Array, required: true }
 });
 
 const emit = defineEmits(['results', 'reset']);
 
+// state variables
 const searchTerm = ref('');
 
+/**
+ * Handles the search functionality by filtering stations based on the search term.
+ * If the search term is empty, it emits all stations.
+ */
 const handleSearch = () => {
   if (!searchTerm.value.trim()) {
     emit('results', props.stations);
@@ -27,7 +34,6 @@ const handleReset = () => {
   emit('reset');
 };
 
-// Live-Search beim Tippen
 watch(searchTerm, handleSearch);
 </script>
 
