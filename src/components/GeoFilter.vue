@@ -1,13 +1,22 @@
 <script setup>
+// vue imports
 import { ref } from 'vue';
 import { fetchNearbyStations } from '@/composables/api.js';
 
 const emit = defineEmits(['results', 'reset']);
 
+// state variables
 const latitude = ref('');
 const longitude = ref('');
 const radius = ref('');
 
+/**
+ * Fetches nearby stations based on latitude, longitude, and radius.
+ * @param {number} lat - Latitude of the center point.
+ * @param {number} lng - Longitude of the center point.
+ * @param {number} rad - Radius in meters to search within.
+ * @returns {Promise<Array>} - A promise that resolves to an array of nearby stations.
+ */
 const handleFilter = async () => {
   try {
     const lat = parseFloat(latitude.value) || 50.9375;
@@ -22,8 +31,11 @@ const handleFilter = async () => {
   }
 };
 
-// Fehlende Funktionen:
-
+/**
+ * Gets the user's current location using the Geolocation API.
+ * If successful, sets latitude and longitude values.
+ * If unsuccessful, alerts the user.
+ */
 const getCurrentLocation = () => {
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(
@@ -52,7 +64,7 @@ const handleReset = () => {
 
 <template>
   <div class="geo-filter">
-    <h4>📍 Umkreissuche</h4>
+    <h4>Umkreissuche</h4>
 
     <div class="inputs">
       <input v-model="latitude" type="number" step="0.000001" placeholder="Breitengrad (50.9375)" class="geo-input" />
@@ -71,13 +83,13 @@ const handleReset = () => {
 
     <div class="buttons">
       <button @click="getCurrentLocation" class="btn btn-secondary">
-        🎯 Mein Standort
+        Mein Standort
       </button>
       <button @click="handleFilter" class="btn btn-primary">
-        🔍 Suchen
+        Suchen
       </button>
       <button @click="handleReset" class="btn btn-secondary">
-        ↺ Reset
+        Reset
       </button>
     </div>
   </div>
