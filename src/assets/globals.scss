@@ -9,6 +9,11 @@ $color-success: #10b981;
 $color-warning: #f59e0b;
 $color-error: #ef4444;
 
+// Neutrals
+$color-white: #ffffff;
+$color-black: #000000;
+$color-transparent: rgba(0, 0, 0, 0.5);
+
 // Grays
 $color-gray-50: #f9fafb;
 $color-gray-100: #f3f4f6;
@@ -103,7 +108,7 @@ $breakpoint-xl: 1280px;
   border-radius: $radius-md;
   background-color: white;
   transition: border-color $transition-fast, box-shadow $transition-fast;
-  
+
   &:focus {
     outline: none;
     border-color: $color-primary;
