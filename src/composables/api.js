@@ -25,6 +25,10 @@ export async function apiRequest(url, options = {}) {
   return data
 }
 
+/**
+ * Fetches the list of gas stations
+ * @returns {Promise<Array>} List of gas stations
+ */
 export async function fetchStations() {
   try {
     return await apiRequest(`${API_BASE_URL}/gas-stations`)
@@ -34,6 +38,10 @@ export async function fetchStations() {
   }
 }
 
+/** * Fetches a specific gas station by ID
+ * @param {string} id - The ID of the gas station
+ * @returns {Promise<Object>} The gas station data
+ */
 export async function fetchNearbyStations(lat, lng, radius) {
   if (typeof lat !== 'number' || lat < -90 || lat > 90) {
     throw new Error('Ungültiger Breitengrad. Muss zwischen -90 und 90 liegen.')
