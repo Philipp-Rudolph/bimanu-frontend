@@ -29,58 +29,30 @@ A Vue 3 web application for finding gas stations in Cologne, Germany. Built with
 
 ```
 src/
-├── components/          # Reusable Vue components
-│   ├── GeoFilter.vue   # Location-based filtering
-│   ├── SearchBar.vue   # Text search functionality
-│   ├── SortBar.vue     # Sorting controls
-│   └── StationsList.vue # Station results display
-├── composables/        # Vue composables for shared logic
-│   ├── api.js         # API communication
-│   └── maps.js        # Map integration utilities
-├── assets/            # Stylesheets and static assets
-│   ├── globals.scss   # Global SCSS variables and mixins
-│   └── styles.scss    # Base styles
-├── App.vue           # Root component
-└── main.js           # Application entry point
+├── components/            # Reusable Vue components
+│   ├── GeoFilter.vue      # Location-based filtering
+│   ├── SearchBar.vue      # Text search functionality
+│   ├── SortBar.vue        # Sorting controls
+│   └── StationsList.vue   # Station results display
+├── composables/           # Vue composables for shared logic
+│   ├── api.js             # API communication
+│   └── maps.js            # Map integration utilities
+├── assets/                # Stylesheets and static assets
+│   ├── globals.scss       # Global SCSS variables and mixins
+│   └── styles.scss        # Base styles
+├── App.vue                # Root component
+└── main.js                # Application entry point
 ```
 
-## 🚀 Getting Started
+## 🛠️ Installation & Setup
 
-### Installation
+Use the bimanu docker wrapper repository to run the application, including: 
+- **PostgreSQL**: Database for storing gas station data
+- **PostGIS**: Geospatial extension for PostgreSQL
+- **Backend Service**: Node.js application for managing gas station data
+- **Frontend Service**: Vue.js application for user interface
+URL: [bimanu-docker](https://github.com/Philipp-Rudolph/bimanu-docker-wrapper.git)
 
-```bash
-# Install dependencies
-npm install
-```
-
-### Development
-
-```bash
-# Start development server with hot reload
-npm run dev
-```
-
-The application will be available at `http://localhost:8082`
-
-### Production Build
-
-```bash
-# Build for production
-npm run build
-
-# Preview production build locally
-npm run preview
-```
-
-## 📝 Available Scripts
-
-| Script | Description |
-|--------|-------------|
-| `npm run dev` | Start development server with hot reload |
-| `npm run build` | Build for production |
-| `npm run preview` | Preview production build locally |
-| `npm run lint` | Run ESLint and auto-fix issues |
-| `npm run format` | Format code with Prettier |
 
 ## 🔧 Configuration
 
@@ -105,12 +77,6 @@ The project includes Docker configuration:
 - `Dockerfile`: Development container
 - `Dockerfile.prod`: Production-optimized container
 
-```bash
-# Build and run with Docker
-docker build -t bimanu-frontend .
-docker run -p 8082:8082 bimanu-frontend
-```
-
 ## 🌐 API Integration
 
 The frontend communicates with a backend API for station data:
@@ -127,22 +93,6 @@ The project uses a custom SCSS design system with:
 - **Responsive Design**: Mobile-first approach
 - **Component Scoping**: Scoped styles in Vue components
 - **Global Styles**: Base styles and utilities
-
-## 🔍 IDE Setup
-
-### Recommended
-
-- [Visual Studio Code](https://code.visualstudio.com/)
-- [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (Vue 3 support)
-- Disable Vetur if installed (conflicts with Volar)
-
-### Useful Extensions
-
-- Vue Language Features (Volar)
-- TypeScript Vue Plugin (Volar)
-- ESLint
-- Prettier
-- SCSS IntelliSense
 
 ## 🚨 Troubleshooting
 
