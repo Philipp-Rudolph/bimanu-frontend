@@ -1,8 +1,13 @@
 <script setup>
+// vue imports
 import { ref, onMounted } from 'vue';
+
+// component imports
 import StationsList from '@/components/StationsList.vue';
 import SearchBar from '@/components/SearchBar.vue';
 import GeoFilter from '@/components/GeoFilter.vue';
+
+// composable imports
 import { fetchStations } from '@/composables/api.js';
 
 const allStations = ref([]);
@@ -10,6 +15,10 @@ const filteredStations = ref([]);
 const loading = ref(true);
 const error = ref(null);
 
+/**
+ * Fetches all stations from the API and initializes the component state.
+ * Handles loading state and errors.
+ */
 onMounted(async () => {
   try {
     allStations.value = await fetchStations();
@@ -21,14 +30,28 @@ onMounted(async () => {
   }
 });
 
+/**
+ * Handles search results from the SearchBar component.
+ * Updates the filtered stations based on search input.
+ * @param {Array} results - The search results to filter stations.
+ */
 const handleSearchResults = (results) => {
   filteredStations.value = results;
 };
 
+/**
+ * Handles geolocation results from the GeoFilter component.
+ * Updates the filtered stations based on geolocation data.
+ * @param {Array} results - The geolocation results to filter stations.
+ */
 const handleGeoResults = (results) => {
   filteredStations.value = results;
 };
 
+/**
+ * Resets the filtered stations to show all stations.
+ * Called when the user clears filters or resets the search.
+ */
 const handleReset = () => {
   filteredStations.value = allStations.value;
 };

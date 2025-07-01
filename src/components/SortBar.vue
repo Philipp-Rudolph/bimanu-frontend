@@ -4,7 +4,7 @@ import { ref, watch, computed } from 'vue';
 const props = defineProps(['data']);
 const emit = defineEmits(['sorted']);
 
-const sortBy = ref('address');  // Default: Adresse
+const sortBy = ref('address');
 const sortOrder = ref('asc');
 
 // Check if any station has a distance_km property
@@ -12,9 +12,11 @@ const hasDistance = computed(() =>
   props.data?.some(station => station.distance_km != null)
 );
 
-/* Function to sort the data based on the selected field and order.
- * If the field is 'distance', it checks if any station has a distance_km property.
- * If the field is 'address', it sorts alphabetically.
+/**
+ * Function to handle sorting when a button is clicked.
+ * It toggles the sort order if the same field is clicked again,
+ * or sets the sortBy field to the clicked field with ascending order.
+ * @param {string} field - The field to sort by ('distance' or 'address').
  */
 const sort = (field) => {
   if (field === 'distance' && !hasDistance.value) return;

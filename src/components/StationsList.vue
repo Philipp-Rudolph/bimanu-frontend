@@ -13,6 +13,11 @@ const props = defineProps({
 
 const sortedStations = ref([]);
 
+/**
+ * Handles the sorted event from the SortBar component.
+ * Updates the sortedStations with the sorted data.
+ * @param {Array} sorted - The sorted array of stations.
+ */
 const handleSorted = (sorted) => {
   sortedStations.value = sorted;
 };
